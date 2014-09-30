@@ -35,16 +35,30 @@ public class TwitterRestClient extends OAuthBaseClient {
 	}
 
 
-    public void getTimeLine(AsyncHttpResponseHandler handler)
+    public void getTimeLine(AsyncHttpResponseHandler handler, Long max_id)
     {
 
         String apiUrl = getApiUrl("statuses/home_timeline.json");
         RequestParams params = new RequestParams();
         params.put("since_id", "10");
         params.put("count", "5");
-        if (Tweet.max_id != 1L) {
-            params.put("max_id", Tweet.max_id.toString());
+        if (max_id != 1L) {
+            params.put("max_id", max_id.toString());
         }
+
+        client.get(apiUrl, params, handler);
+
+    }
+
+
+    public void getMentionsTimeLine(AsyncHttpResponseHandler handler, Long max_id)
+    {
+
+        String apiUrl = getApiUrl("statuses/mentions_timeline.json");
+        RequestParams params = new RequestParams();
+
+        params.put("since_id", max_id.toString());
+        params.put("count", "5");
         client.get(apiUrl, params, handler);
 
     }
@@ -59,22 +73,23 @@ public class TwitterRestClient extends OAuthBaseClient {
 
     }
 
-    // CHANGE THIS
-	// DEFINE METHODS for different API endpoints here
-	public void getInterestingnessList(AsyncHttpResponseHandler handler) {
-		String apiUrl = getApiUrl("?nojsoncallback=1&method=flickr.interestingness.getList");
-		// Can specify query string params directly or through RequestParams.
-		RequestParams params = new RequestParams();
-		params.put("format", "json");
-		client.get(apiUrl, params, handler);
-	}
 
-	/* 1. Define the endpoint URL with getApiUrl and pass a relative path to the endpoint
-	 * 	  i.e getApiUrl("statuses/home_timeline.json");
-	 * 2. Define the parameters to pass to the request (query or body)
-	 *    i.e RequestParams params = new RequestParams("foo", "bar");
-	 * 3. Define the request method and make a call to the client
-	 *    i.e client.get(apiUrl, params, handler);
-	 *    i.e client.post(apiUrl, params, handler);
-	 */
+    public void getMyInfo(AsyncHttpResponseHandler handler){
+        String apiUrl = getApiUrl("account/verify_credentials.json");
+        client.get(apiUrl, null, handler);
+    }
+
+    public void getUserTimeLine(AsyncHttpResponseHandler handler, Long max_id, String userId) {
+        String apiUrl = getApiUrl("statuses/user_timeline.json");
+        RequestParams params = new RequestParams();
+        params.put("since_id", "10");
+        params.put("count", "5");
+        params.put("screen_name", userId);
+        if (max_id != 1L) {
+//            params.put("max_id", max_id.toString());
+            params.put("since_id", max_id.toString());
+        }
+        client.get(apiUrl, params, handler);
+
+    }
 }

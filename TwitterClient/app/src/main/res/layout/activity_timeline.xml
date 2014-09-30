@@ -9,14 +9,12 @@
     tools:context="com.yahoo.sundarm.twitterclient.TimelineActivity">
 
 
-
-    <fragment
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:name="com.yahoo.sundarm.twitterclient.fragments.TimeLineFragment"
-        android:id="@+id/fragment"
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentEnd="true"
+        android:id="@+id/flContainer"></FrameLayout>
 </RelativeLayout>

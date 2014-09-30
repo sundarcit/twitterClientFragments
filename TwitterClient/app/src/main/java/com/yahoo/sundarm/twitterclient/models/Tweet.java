@@ -80,10 +80,10 @@ public class Tweet implements Serializable {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            if ( tweet != null)
-            {
-                Tweet.max_id = tweet.id;
-            }
+//            if ( tweet != null)
+//            {
+//                Tweet.max_id = tweet.id;
+//            }
         }
         return  tweetList;
     }
